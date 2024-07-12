@@ -1,0 +1,47 @@
+import sys
+
+# Definição das características dos modelos
+modelos = {
+    "Claude 3 Opus": {
+        "desempenho": 9,
+        "velocidade": 10,
+        "custo": 5,
+        "capacidades": ["Pesquisa", "Desenvolvimento Acelerado"]
+    },
+    "Claude 3 Sonnet": {
+        "desempenho": 8,
+        "velocidade": 5,
+        "custo": 7,
+        "capacidades": ["Codificação", "Recuperação de Informações"]
+    },
+    "Claude 3 Haiku": {
+        "desempenho": 7,
+        "velocidade": 9,
+        "custo": 6,
+        "capacidades": ["Velocidade", "Resumo de Dados Não Estruturados"]
+    }
+}
+
+# Função para determinar o modelo mais adequado
+def recomendar_modelo(entrada):
+    desempenho, velocidade, custo, capacidades = entrada
+    capacidades = [cap.strip().lower() for cap in capacidades.split(',')]
+
+    for modelo, caracteristicas in modelos.items():
+        if (caracteristicas["desempenho"] == desempenho and
+            caracteristicas["velocidade"] == velocidade and
+            caracteristicas["custo"] == custo and
+            all(cap in [cap_mod.lower() for cap_mod in caracteristicas["capacidades"]] for cap in capacidades)):
+            return f"O {modelo} é o modelo recomendado."
+
+    return "Nenhum modelo encontrado."
+
+# Leitura da entrada
+desempenho = int(sys.stdin.readline().strip())
+velocidade = int(sys.stdin.readline().strip())
+custo = int(sys.stdin.readline().strip())
+capacidades = sys.stdin.readline().strip()
+
+# Determinar e imprimir o modelo recomendado
+entrada = (desempenho, velocidade, custo, capacidades)
+print(recomendar_modelo(entrada))
